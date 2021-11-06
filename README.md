@@ -7,9 +7,9 @@
 
 1- Kotlin  
 2- MVVM design pattern  
-3- ViewBinding    
+3- DataBinding    
 4- Coroutine  
-5- ZipCodeApi  
+5- ZipCode Api  
 6- LiveData  / Sealed Class
 7- Retrofit2   
 8- Dagger-Hilt  
