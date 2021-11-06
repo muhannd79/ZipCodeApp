@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var zipCodeAdapter : ZipCodeAdapter
     private val viewModel: ZipCodeViewModel by viewModels()
     private var result  = mutableListOf<ZipCodeItem>()
+    private val MAX_VALUE = 150
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkInput(zipCodeInput: String, distanceInput: String) : Boolean {
 
         if(zipCodeInput.isNotEmpty() && zipCodeInput.length.equals(5)
-                && distanceInput.isNotEmpty() && distanceInput.length>0 && distanceInput.toInt()<50){
+                && distanceInput.isNotEmpty() && distanceInput.length>0 && distanceInput.toInt()<MAX_VALUE){
             return true
         }
         binding.zipCodeEditText.text.clear()
