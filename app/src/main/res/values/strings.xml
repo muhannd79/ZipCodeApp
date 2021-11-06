@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ZipCodeApp</string>
+    <string name="distance">Distance:</string>
+    <string name="state">State:</string>
+    <string name="city">City:</string>
+    <string name="get_data">Get Data</string>
+    <string name="zipcode">ZipCode</string>
 </resources>
