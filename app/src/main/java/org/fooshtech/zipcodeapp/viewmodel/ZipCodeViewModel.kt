@@ -34,7 +34,7 @@ constructor(private val repository: Repository) : ViewModel() {
                 Log.d("tmz", "size=" + zibCodeList.size)
                 return Resource.Success(response.body()!! )
         }
-        return Resource.Error(response.message())
+        return Resource.Error(response.message().toString())
     }
 
 }

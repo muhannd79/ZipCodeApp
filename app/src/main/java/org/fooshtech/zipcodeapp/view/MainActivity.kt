@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var zipCodeAdapter : ZipCodeAdapter
     private val viewModel: ZipCodeViewModel by viewModels()
-    private val result  = mutableListOf<ZipCodeItem>()
+    private var result  = mutableListOf<ZipCodeItem>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +56,13 @@ class MainActivity : AppCompatActivity() {
                    zipCodeInput,
                    distanceInput
                )
-              // setDummyData()
+           //    setDummyData()
 
 
            } else {
                Snackbar.make(it,"Kindly Enter Correct Information",Snackbar.LENGTH_LONG).show()
+               binding.resultFoundValueTxt.text = ""
+
            }
 
 
@@ -77,14 +80,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is Resource.Error ->{
-                    //hideprogress
-                    response.message?.let {
-                        Log.d("tmz","error"+it)
+                    hideProgress()
+                    response.message?.let { msg->
+                        Snackbar.make(binding.root ,"Error Try Again Later.."+msg,Snackbar.LENGTH_LONG).show()
+                        binding.resultFoundValueTxt.text = ""
+
                     }
                 }
 
                 is Resource.Loading ->{
-                    Log.d("tmz","Show Data")
                     showProgress()
                 }
             }
@@ -108,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkInput(zipCodeInput: String, distanceInput: String) : Boolean {
 
         if(zipCodeInput.isNotEmpty() && zipCodeInput.length.equals(5)
-                && distanceInput.isNotEmpty() && distanceInput.length>0){
+                && distanceInput.isNotEmpty() && distanceInput.length>0 && distanceInput.toInt()<50){
             return true
         }
         binding.zipCodeEditText.text.clear()
@@ -119,17 +123,37 @@ class MainActivity : AppCompatActivity() {
     // we will do processing for data
     private fun processData(it: ListZipCode) {
         zipCodeAdapter.setData(it.zipCodes)
-
+        result = it.zipCodes.toMutableList()
+        for (i in result.indices) {
+            if(result[i].zipCode == binding.zipCodeEditText.text.trim().toString()){
+                result.removeAt(i)
+                break
+                //  Considering that the value of the zibCode exisit only once eitherwiese the machinaes will be different
+            }
+        }
+        binding.resultFoundValueTxt.text = result.size.toString()
+        zipCodeAdapter.setData(result)
     }
 
+
+    // used it for testing
     fun setDummyData(){
         result.clear()
         result.add(ZipCodeItem("Mission",440.44,"KS","66202"))
         result.add(ZipCodeItem("overland Park",4.44,"KS","66201"))
-//        result.add(ZipCodeItem("HOOOO",44,"NY","66208"))
-//        result.add(ZipCodeItem("Mission",8,"UA","66209"))
-//        result.add(ZipCodeItem("Mission",74,"SA","662"))
+        result.add(ZipCodeItem("HOOOO",44.8,"NY","66208"))
+        result.add(ZipCodeItem("Mission",8.5,"UA","66202"))
+        result.add(ZipCodeItem("Mission",74.9,"SA","66202"))
+
+        for (i in result.indices) {
+             if(result[i].zipCode == binding.zipCodeEditText.text.trim().toString()){
+                 result.removeAt(i)
+                 break
+               //  Considering that the value of the zibCode exisit only once eitherwiese the machinaes will be different
+             }
+        }
         zipCodeAdapter.setData(result)
+
     }
 
 }
