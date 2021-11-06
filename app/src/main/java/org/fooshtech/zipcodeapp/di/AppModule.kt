@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.fooshtech.zipcodeapp.request.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,6 +18,7 @@ object AppModule {
 
     @Provides
     fun provideBaseUrl() = Constants.BASE_URL
+
 
     @Provides
     @Singleton

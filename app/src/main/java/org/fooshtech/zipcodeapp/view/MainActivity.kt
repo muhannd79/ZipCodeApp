@@ -36,14 +36,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // create binding object
         binding =DataBindingUtil.setContentView(this,R.layout.activity_main)
+       // create an empty array
         zipCodeAdapter = ZipCodeAdapter(result)
 
+        //Setup RecycleView
         binding.myRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = zipCodeAdapter
         }
 
+        // set Click Listener for Button
         binding.getDataBtn.setOnClickListener {
 
             val zipCodeInput : String = binding.zipCodeEditText.text.toString()
@@ -58,17 +62,15 @@ class MainActivity : AppCompatActivity() {
                )
            //    setDummyData()
 
-
            } else {
                Snackbar.make(it,"Kindly Enter Correct Information",Snackbar.LENGTH_LONG).show()
                binding.resultFoundValueTxt.text = ""
 
            }
-
-
         }
 
 
+        // Get Gata from viewModel
         viewModel.zipCodeLiveData.observe(this, Observer { response ->
             when(response){
                 is Resource.Success -> {
@@ -120,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    // we will do processing for data
+    // we will do data processing
     private fun processData(it: ListZipCode) {
         zipCodeAdapter.setData(it.zipCodes)
         result = it.zipCodes.toMutableList()
