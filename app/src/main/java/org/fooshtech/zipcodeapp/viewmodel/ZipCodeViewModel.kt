@@ -1,7 +1,6 @@
 package org.fooshtech.zipcodeapp.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,6 @@ import org.fooshtech.zipcodeapp.model.ListZipCode
 import org.fooshtech.zipcodeapp.model.ZipCodeItem
 import org.fooshtech.zipcodeapp.repository.Repository
 import retrofit2.Response
-import java.net.CacheResponse
 import javax.inject.Inject
 
 @HiltViewModel

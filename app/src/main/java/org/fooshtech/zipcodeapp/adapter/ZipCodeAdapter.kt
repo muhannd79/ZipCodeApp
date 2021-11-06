@@ -2,10 +2,7 @@ package org.fooshtech.zipcodeapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import org.fooshtech.zipcodeapp.R
 import org.fooshtech.zipcodeapp.databinding.ItemCardviewLayoutBinding
 import org.fooshtech.zipcodeapp.model.ZipCodeItem
 

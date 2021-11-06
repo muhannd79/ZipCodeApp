@@ -1,8 +1,6 @@
 package org.fooshtech.zipcodeapp.repository
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import org.fooshtech.zipcodeapp.model.ZipCodeItem
+
 import org.fooshtech.zipcodeapp.request.ApiService
 import javax.inject.Inject
 

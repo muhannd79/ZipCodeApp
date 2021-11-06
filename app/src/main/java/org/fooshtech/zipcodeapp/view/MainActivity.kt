@@ -6,22 +6,19 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import org.fooshtech.zipcodeapp.BuildConfig
 import org.fooshtech.zipcodeapp.R
 import org.fooshtech.zipcodeapp.adapter.ZipCodeAdapter
 import org.fooshtech.zipcodeapp.databinding.ActivityMainBinding
 import org.fooshtech.zipcodeapp.model.ListZipCode
 import org.fooshtech.zipcodeapp.model.ZipCodeItem
-import org.fooshtech.zipcodeapp.request.ApiService
-import org.fooshtech.zipcodeapp.request.RetrofitInstance
 import org.fooshtech.zipcodeapp.viewmodel.Resource
 import org.fooshtech.zipcodeapp.viewmodel.ZipCodeViewModel
-import retrofit2.Response
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
            if(checkInput(zipCodeInput,distanceInput)){
 
                viewModel.getData(
-                   "QE8alngX4n945AtYr65GRnfIi9JS8wU4v4bWpDj8s2BxcSzibZPPnTLVVf1QLsoS",
+                   BuildConfig.API_KEY,
                    zipCodeInput,
                    distanceInput
                )
