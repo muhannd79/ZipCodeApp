@@ -11,8 +11,8 @@ interface ApiService {
     @GET("rest/{api_key}/radius.json/{zip_code}/{distance}/{units}")
     suspend fun getZipCodeList(
         @Path(value = "api_key") key: String,
-        @Path(value = "zip_code") zipCode: Int,
-        @Path(value = "distance") distance: Int,
+        @Path(value = "zip_code") zipCode: String,
+        @Path(value = "distance") distance: String,
         @Path(value = "units") units: String,
 
         ): Response<ListZipCode>
