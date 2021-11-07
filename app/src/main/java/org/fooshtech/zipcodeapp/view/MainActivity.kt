@@ -16,6 +16,7 @@ import org.fooshtech.zipcodeapp.adapter.ZipCodeAdapter
 import org.fooshtech.zipcodeapp.databinding.ActivityMainBinding
 import org.fooshtech.zipcodeapp.model.ListZipCode
 import org.fooshtech.zipcodeapp.model.ZipCodeItem
+import org.fooshtech.zipcodeapp.utils.Util.checkInput
 import org.fooshtech.zipcodeapp.viewmodel.Resource
 import org.fooshtech.zipcodeapp.viewmodel.ZipCodeViewModel
 
@@ -51,8 +52,7 @@ class MainActivity : AppCompatActivity() {
             val zipCodeInput : String = binding.zipCodeEditText.text.toString()
             val distanceInput : String = binding.distanceEditText.text.toString()
 
-           if(checkInput(zipCodeInput,distanceInput)){
-
+           if(checkInput(zipCodeInput,distanceInput,MAX_VALUE)){
                viewModel.getData(
                    BuildConfig.API_KEY,
                    zipCodeInput,
@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
            //    setDummyData()
 
            } else {
+               binding.zipCodeEditText.text.clear()
+               binding.distanceEditText.text.clear()
                Snackbar.make(it,"Kindly Enter Correct Information",Snackbar.LENGTH_LONG).show()
                binding.resultFoundValueTxt.text = ""
 
@@ -108,17 +110,7 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility= View.VISIBLE
     }
 
-    // check if input is correct
-    private fun checkInput(zipCodeInput: String, distanceInput: String) : Boolean {
 
-        if(zipCodeInput.isNotEmpty() && zipCodeInput.length.equals(5)
-                && distanceInput.isNotEmpty() && distanceInput.length>0 && distanceInput.toInt()<MAX_VALUE){
-            return true
-        }
-        binding.zipCodeEditText.text.clear()
-        binding.distanceEditText.text.clear()
-        return false
-    }
 
     // we will do data processing
     private fun processData(it: ListZipCode) {
