@@ -2,6 +2,7 @@ package org.fooshtech.zipcodeapp.utils
 
 
 import com.google.common.truth.Truth.assertThat
+import org.fooshtech.zipcodeapp.model.ZipCodeItem
 import org.junit.Test
 
 class UtilTest {
@@ -76,6 +77,43 @@ class UtilTest {
             10
         )
         assertThat(result).isFalse()
+    }
+
+    // if found will return the index otherwise will return -1
+    @Test
+    fun check_if_zipCode_founded_return_index(){
+        val result = Util.findIndex(
+            mutableListOf(
+                ZipCodeItem("Mission",440.44,"KS","66202"),
+                ZipCodeItem("overland Park",4.44,"KS","66201"),
+                ZipCodeItem("HOOOO",44.8,"NY","66208")
+            ),
+            "66202"
+        )
+        assertThat(result).isNotEqualTo(-1)
+    }
+
+    // For the second fun
+    @Test
+    fun check_if_zipCode_not_founded_return_minus_1(){
+        val result = Util.findIndex(
+            mutableListOf(
+                ZipCodeItem("Mission",440.44,"KS","66202"),
+                ZipCodeItem("overland Park",4.44,"KS","66201"),
+                ZipCodeItem("HOOOO",44.8,"NY","66208")
+            ),
+            "662002"
+        )
+        assertThat(result).isEqualTo(-1)
+    }
+
+    @Test
+    fun check_if_list_empty_return_minus_1(){
+        val result = Util.findIndex(
+            mutableListOf(),
+            "66202"
+        )
+        assertThat(result).isEqualTo(-1)
     }
 
 

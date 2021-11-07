@@ -17,6 +17,7 @@ import org.fooshtech.zipcodeapp.databinding.ActivityMainBinding
 import org.fooshtech.zipcodeapp.model.ListZipCode
 import org.fooshtech.zipcodeapp.model.ZipCodeItem
 import org.fooshtech.zipcodeapp.utils.Util.checkInput
+import org.fooshtech.zipcodeapp.utils.Util.findIndex
 import org.fooshtech.zipcodeapp.viewmodel.Resource
 import org.fooshtech.zipcodeapp.viewmodel.ZipCodeViewModel
 
@@ -116,16 +117,16 @@ class MainActivity : AppCompatActivity() {
     private fun processData(it: ListZipCode) {
         zipCodeAdapter.setData(it.zipCodes)
         result = it.zipCodes.toMutableList()
-        for (i in result.indices) {
-            if(result[i].zipCode == binding.zipCodeEditText.text.trim().toString()){
-                result.removeAt(i)
-                break
-                //  Considering that the value of the zibCode exisit only once eitherwiese the machinaes will be different
-            }
+
+       val index =  findIndex(result,binding.zipCodeEditText.text.trim().toString())
+        if (index !=-1){
+            result.removeAt(index)
         }
         binding.resultFoundValueTxt.text = result.size.toString()
         zipCodeAdapter.setData(result)
     }
+
+
 
 
     // used it for testing
