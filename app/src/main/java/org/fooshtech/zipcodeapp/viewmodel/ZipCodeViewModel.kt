@@ -29,7 +29,6 @@ constructor(private val repository: Repository) : ViewModel() {
 
     private fun getListOfZipCode(response: Response<ListZipCode>): Resource<ListZipCode> {
         if (response.isSuccessful) {
-                Log.d("tmz", "size=" + zibCodeList.size)
                 return Resource.Success(response.body()!! )
         }
         return Resource.Error(response.message().toString())

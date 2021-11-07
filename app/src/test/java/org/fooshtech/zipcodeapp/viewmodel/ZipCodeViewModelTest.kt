@@ -22,19 +22,10 @@ class ZipCodeViewModelTest {
     @Before
     suspend fun setup(){
        val fakeRepo = FakeRepo()
-//        val getZipCodeList = fakeRepo.getZipCodeList("3234","66202","dasd","km")
-//        viewModel = ZipCodeViewModel(Response<getZipCodeList>)
+
 
         @Test
         fun getList_returnsCurrentList(){
-
-//            val list = mutableListOf<ZipCodeViewModel>()
-//            list.add(ZipCodeItem("Mission",440.44,"KS","66202"))
-//            list.add(ZipCodeItem("overland Park",466.44,"KS","66212"))
-//            list.add(ZipCodeItem("Hays",4400.44,"KS","66802"))
-//
-//            val currentList = viewModel
-//            assertThat(currentList).isEqualTo(movies)
 
         }
     }
