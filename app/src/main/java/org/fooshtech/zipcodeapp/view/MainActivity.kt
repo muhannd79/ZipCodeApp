@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         // Get Gata from viewModel
         viewModel.zipCodeLiveData.observe(this, Observer { response ->
             when(response){

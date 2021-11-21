@@ -1,6 +1,7 @@
 package org.fooshtech.zipcodeapp.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,19 +18,21 @@ class ZipCodeViewModel
 @Inject
 constructor(private val repository: Repository) : ViewModel() {
 
-    private val zibCodeList = arrayListOf<ZipCodeItem>()
-    val zipCodeLiveData: MutableLiveData<Resource<ListZipCode>> = MutableLiveData()
+    private val _zipCodeLiveData: MutableLiveData<Resource<ListZipCode>> = MutableLiveData()
+    val zipCodeLiveData: LiveData<Resource<ListZipCode>>
+        get() = _zipCodeLiveData
 
 
     fun getData(api: String, zipCode: String, distance: String) = viewModelScope.launch {
-        zipCodeLiveData.postValue(Resource.Loading())
-        val response = repository.getData(api, zipCode, distance)
-        zipCodeLiveData.postValue(getListOfZipCode(response))
-    }
+            _zipCodeLiveData.postValue(Resource.Loading())
+            val response = repository.getData(api, zipCode, distance)
+            _zipCodeLiveData.postValue(getListOfZipCode(response))
+        }
+
 
     private fun getListOfZipCode(response: Response<ListZipCode>): Resource<ListZipCode> {
         if (response.isSuccessful) {
-                return Resource.Success(response.body()!! )
+            return Resource.Success(response.body()!!)
         }
         return Resource.Error(response.message().toString())
     }
@@ -38,10 +41,10 @@ constructor(private val repository: Repository) : ViewModel() {
 
 sealed class Resource<T>(
     val data: T? = null,
-    val message : String? = null
+    val message: String? = null
 ) {
     class Success<T>(data: T) : Resource<T>(data)
-    class Error<T>(message: String,data : T? =null) : Resource<T>(data,message)
+    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
     class Loading<T> : Resource<T>()
 }
 

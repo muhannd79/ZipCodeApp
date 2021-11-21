@@ -20,14 +20,17 @@ object AppModule {
     @Provides
     fun provideBaseUrl() = Constants.BASE_URL
 
+    @Provides
+    fun providerInterceptor() : HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            this.level = HttpLoggingInterceptor.Level.BODY
+        }
+
 
     @Provides
     @Singleton
-    fun provideRetrofitInstance(BASE_URL: String): ApiService {
+    fun provideRetrofitInstance(BASE_URL: String, interceptor: HttpLoggingInterceptor): ApiService {
 
-        val interceptor = HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
-        }
         val client = OkHttpClient.Builder().apply {
             this.addInterceptor(interceptor)
             connectTimeout(30, TimeUnit.SECONDS)
