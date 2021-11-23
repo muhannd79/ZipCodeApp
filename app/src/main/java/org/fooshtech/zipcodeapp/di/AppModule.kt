@@ -21,22 +21,25 @@ object AppModule {
     fun provideBaseUrl() = Constants.BASE_URL
 
     @Provides
-    fun providerInterceptor() : HttpLoggingInterceptor =
+    fun providerInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
 
-
     @Provides
-    @Singleton
-    fun provideRetrofitInstance(BASE_URL: String, interceptor: HttpLoggingInterceptor): ApiService {
-
-        val client = OkHttpClient.Builder().apply {
+    fun provideClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder().apply {
             this.addInterceptor(interceptor)
             connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(25, TimeUnit.SECONDS)
         }.build()
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofitInstance(BASE_URL: String, client: OkHttpClient): ApiService {
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
