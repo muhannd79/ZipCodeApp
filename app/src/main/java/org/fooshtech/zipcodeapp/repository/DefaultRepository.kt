@@ -4,11 +4,11 @@ package org.fooshtech.zipcodeapp.repository
 import org.fooshtech.zipcodeapp.request.ApiService
 import javax.inject.Inject
 
-class Repository
+class DefaultRepository
 @Inject
-constructor(private val apiService: ApiService) {
+constructor(private val apiService: ApiService) : Repository {
 
-    suspend fun getData(api: String, zipCode: String, distance: String) =
+    override suspend fun getData(api: String, zipCode: String, distance: String) =
         apiService.getZipCodeList(api, zipCode, distance, "km")
 
 }

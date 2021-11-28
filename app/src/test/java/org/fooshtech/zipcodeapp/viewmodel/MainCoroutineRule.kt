@@ -1,4 +1,4 @@
-package com.androiddevs.shoppinglisttestingyt
+package org.fooshtech.zipcodeapp.viewmodel
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

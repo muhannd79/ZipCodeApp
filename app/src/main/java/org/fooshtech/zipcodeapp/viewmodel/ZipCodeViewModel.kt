@@ -1,6 +1,5 @@
 package org.fooshtech.zipcodeapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,15 +24,17 @@ constructor(private val repository: Repository) : ViewModel() {
 
 
     fun getData(api: String, zipCode: String, distance: String) = viewModelScope.launch {
+        if (zipCode.isEmpty() || distance.isEmpty()) {
+            _zipCodeLiveData.postValue(Resource.Error(ERRORS.FIELDS_EMPTY))
+        } else {
             _zipCodeLiveData.postValue(Resource.Loading())
             val response = repository.getData(api, zipCode, distance)
-            _zipCodeLiveData.postValue(getListOfZipCode(response,zipCode))
+            _zipCodeLiveData.postValue(getListOfZipCode(response, zipCode))
         }
-
+    }
 
     private fun getListOfZipCode(response: Response<ListZipCode>,zipCode : String): Resource<List<ZipCodeItem>> {
         if (response.isSuccessful) {
-
             response.body()?.zipCodes.let { list ->
                     val result = list as MutableList<ZipCodeItem>
                     val index = Util.findIndex(result, zipCode)
@@ -63,7 +64,8 @@ sealed class Resource<T>(
 // to create this kind of multi error types
 enum class ERRORS {
     NetWorkError,
-    DeviceError
+    DeviceError,
+    FIELDS_EMPTY
 }
 
 

@@ -95,6 +95,9 @@ class MainActivity : AppCompatActivity() {
                         ERRORS.NetWorkError -> {
                             displayMsg("Error in the Device...")
                         }
+                        ERRORS.FIELDS_EMPTY ->{
+                            displayMsg("Fields are empty...")
+                        }
                     }
                     binding.resultFoundValueTxt.text = ""
                     Log.d("tmz", response.message.toString())

@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.fooshtech.zipcodeapp.repository.DefaultRepository
+import org.fooshtech.zipcodeapp.repository.Repository
 import org.fooshtech.zipcodeapp.request.ApiService
 import org.fooshtech.zipcodeapp.utils.Constants
 import retrofit2.Retrofit
@@ -16,6 +18,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    fun provideDefaultRepository(apiService: ApiService) : Repository
+        = DefaultRepository(apiService) as Repository
+
 
     @Provides
     fun provideBaseUrl() = Constants.BASE_URL
